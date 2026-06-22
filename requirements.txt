@@ -1,0 +1,5 @@
+# Phase 1 (naive RAG) dependencies — deliberately tiny.
+# Embeddings AND generation both go through LM Studio's OpenAI-compatible server,
+# so there is no torch / sentence-transformers here. Heavier deps arrive in later phases.
+openai>=1.0
+numpy>=1.26

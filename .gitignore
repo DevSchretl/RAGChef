@@ -1,0 +1,14 @@
+# Virtual environment
+.venv/
+
+# Built index ("vector store") — regenerate with `python -m src.ingest`
+index/
+
+# The dataset is large and not ours to redistribute — never commit it.
+# (The tiny committed fixture data/sample_recipes.csv is force-allowed below.)
+data/*
+!data/sample_recipes.csv
+
+# Python noise
+__pycache__/
+*.pyc
