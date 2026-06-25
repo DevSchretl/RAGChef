@@ -109,23 +109,30 @@ shorter 9–11 minute bake ...
 
 ---
 
-## Using the real RecipeNLG dataset
+## The dataset
 
-The committed `data/sample_recipes.csv` has just 8 recipes so the loop runs immediately.
-For the real thing:
+The full **RecipeNLG** dataset (`data/full_dataset.csv`, ~2.2M recipes, 2.2 GB) is the
+default corpus — `config.py` points `CSV_PATH` at it and ingests the first
+`CORPUS_SIZE` rows (5,000 by default). It's gitignored, so it's never committed. If you
+clone fresh, download it from Kaggle (`paultimothymooney/recipenlg`) and drop
+`full_dataset.csv` into `data/`.
 
-1. Download **RecipeNLG** from Kaggle (`paultimothymooney/recipenlg`) and unzip
-   `full_dataset.csv` into `data/` (it's gitignored — never committed).
-2. Point the config at it and choose how many rows to index (start small!):
+```powershell
+python -m src.ingest          # indexes the first 5,000 rows of full_dataset.csv
+```
 
-   ```powershell
-   $env:RAGCHEF_CSV         = "data/full_dataset.csv"
-   $env:RAGCHEF_CORPUS_SIZE = "300"
-   python -m src.ingest
-   ```
+Only the first `CORPUS_SIZE` rows are read, so the 2.2 GB file size is irrelevant — ingest
+cost is linear in `CORPUS_SIZE` (≈2–3 min for 5,000 on a CPU-class machine, far less on a
+GPU). Indexing all 2.2M recipes is unnecessary; a few thousand gives the eval enough
+distractors to be discriminating. For a quick test without the big file, use the tiny
+committed sample instead:
 
-Indexing all 2.2M recipes is unnecessary and slow — a few hundred to a few thousand is
-plenty for learning and iterating.
+```powershell
+$env:RAGCHEF_CSV = "data/sample_recipes.csv"; python -m src.ingest
+```
+
+> The eval test set's gold ids reference recipes in the first 5,000 rows, so don't lower
+> `CORPUS_SIZE` below that if you want the committed eval to stay valid.
 
 ---
 
@@ -154,7 +161,87 @@ plenty for learning and iterating.
 - **`retrieve()` exposes each recipe's `id`** — unused in Phase 1, but it's the hook the
   Phase 3 evaluation harness needs to score retrieval against gold recipe ids.
 
+## Evaluation (Phase 3)
+
+A two-tier eval turns "is my RAG any good?" into tracked numbers. It runs the frozen test
+set ([eval/testset.json](eval/testset.json)) through the same `retrieve` → `generate`
+pipeline and scores it. No new dependencies — same `openai` + `numpy`.
+
+| File | Role |
+|------|------|
+| [eval/testset.json](eval/testset.json) | Frozen, hand-curated questions + gold recipe ids + reference answers. |
+| [eval/retrieval_metrics.py](eval/retrieval_metrics.py) | **Tier 1** — `hit@k`, `recall@k`, `MRR`. Deterministic, no LLM. |
+| [eval/judge.py](eval/judge.py) | **Tier 2** — RAGAS-style `faithfulness`, `answer_relevancy`, `context_precision`, `context_recall`, judged by the local LLM. |
+| [eval/run_eval.py](eval/run_eval.py) | Runs both tiers, writes `report.md` + appends to `history.csv`. |
+| [eval/make_testset.py](eval/make_testset.py) | Generates candidate questions from indexed recipes (then curate by hand). |
+| [eval/run_ablation.py](eval/run_ablation.py) | **RAG vs no-RAG** ablation — how much retrieval helps. Writes `ablation.md`. |
+
+**Two metric tiers:**
+- **Tier 1 (retrieval)** — deterministic, instant, free. Did the retriever surface the
+  right recipe? The fast inner loop for tuning. Needs LM Studio only to embed the query.
+- **Tier 2 (generation, RAGAS-style)** — the local LLM judges answer quality. The headline
+  number is **hallucination rate = 1 − faithfulness**. These follow the RAGAS *definitions*
+  via plain prompts (no `ragas`/LangChain, so it runs fine on Python 3.14); the values are
+  *directionally* faithful to canonical RAGAS, which is what you want for tracking change.
+
+```powershell
+# Fast, deterministic — retrieval metrics only (no chat model needed):
+python -m eval.run_eval --retrieval-only --name phase1-dense
+
+# Full eval (retrieval + LLM judge). Needs the chat model loaded in LM Studio:
+python -m eval.run_eval --name phase1-dense
+python -m eval.run_eval --limit 3          # quick smoke test
+```
+
+Each run writes a single self-contained [eval/reports/report.md](eval/reports/report.md)
+— summary metrics plus every question's full test data (question, reference answer,
+retrieved recipes, generated answer, scores), overwritten each run — and appends one row
+to `eval/reports/history.csv`, your **performance ledger over time**. The `--name` flag
+tags each run, so when Phase 2 (hybrid + rerank) lands you re-run with `--name
+phase2-hybrid` and diff the history rows: that before/after is the project's centerpiece.
+
+> **Judge model:** by default the judge is your chat model (`JUDGE_MODEL` → `CHAT_MODEL`).
+> Point `RAGCHEF_JUDGE_MODEL` at a different/stronger model when you can, so the system
+> isn't grading its own homework.
+
+**Caveats (by design):** the eval is only meaningful on a real corpus (a few hundred
+ingested recipes) — the 8-recipe sample just smoke-tests the harness. Retrieval metrics are
+*directional* because RecipeNLG has near-duplicates (a valid sibling recipe can score as a
+"miss"), which is why `gold_ids` is a list and the duplicate-robust context metrics
+complement them. Regenerate candidate questions for a new corpus with
+`python -m eval.make_testset`, then curate the result by hand.
+
+### Ablation: does RAG actually help?
+
+The harness above scores the RAG pipeline, but not how much the *retrieval* is worth. The
+ablation answers every question **twice** — once **with RAG** (retrieve → grounded answer)
+and once **closed-book** (no context; the model answers from memory) — and scores both with
+the same metric: **groundedness** against the question's gold recipe (the fraction of the
+answer's claims the true recipe supports; `hallucination = 1 − groundedness`). Judging
+against the gold recipe rather than the retrieved context is what makes the no-RAG arm
+measurable, so the two are directly comparable. The gap is the value retrieval adds.
+
+```powershell
+# Needs the chat model loaded in LM Studio:
+python -m eval.run_ablation --name rag-vs-norag
+python -m eval.run_ablation --limit 2          # quick smoke test
+```
+
+It runs the frozen specific-recipe questions plus a handful of broad general cooking
+questions ([eval/testset.general.json](eval/testset.general.json)) and reports
+[eval/reports/ablation.md](eval/reports/ablation.md): a RAG-vs-no-RAG summary table broken
+down **overall / specific / general**, then every question with both answers side by side.
+
+> **Reading the number:** "hallucination" here means *unsupported by the gold recipe*, so a
+> closed-book answer that gives a valid but *different* recipe still counts against it. That's
+> the intended test for **specific-source** questions (RAG's job is to reproduce the source);
+> on **general** questions a closed-book model can compete, which is why the two are reported
+> separately. The per-answer claim counts (`supported/total`) make refusals or empty answers
+> visible so a "0/0 → 1.0" can't masquerade as a win.
+
 ## What's next (not built yet)
 
-Phase 2 adds BM25 keyword search + cross-encoder reranking; Phase 3 adds an evaluation
-harness. See [HANDOFF.md](HANDOFF.md) for the full plan.
+- **Phase 2** — BM25 keyword search + cross-encoder reranking (the same eval then proves
+  the before/after).
+
+See [HANDOFF.md](HANDOFF.md) for the full plan.

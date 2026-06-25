@@ -1,0 +1,6 @@
+timestamp,name,k,num_questions,judged,chat_model,judge_model,hit@k,recall@k,mrr,faithfulness,answer_relevancy,context_precision,context_recall,hallucination_rate
+2026-06-22T18:32:55,phase1-dense-retrieval,4,10,False,google/gemma-4-e4b,google/gemma-4-e4b,0.5,0.5,0.45,,,,,
+2026-06-22T19:17:10,phase1-dense-full,4,10,True,google/gemma-4-e4b,google/gemma-4-e4b,0.5,0.5,0.45,1.0,0.7528,0.6632,0.75,0.0
+2026-06-23T13:25:55,phase1-dense-retrieval,4,10,False,google/gemma-4-e4b,google/gemma-4-e4b,1.0,1.0,0.9333,,,,,
+2026-06-23T14:26:56,run,4,10,True,google/gemma-4-e4b,google/gemma-4-e4b,1.0,1.0,1.0,1.0,0.7511,1.0,1.0,0.0
+2026-06-24T00:16:08,phase1-dense-5k,4,11,True,google/gemma-4-e4b,google/gemma-4-e4b,1.0,1.0,0.9545,0.9779,0.8395,0.9293,1.0,0.0221

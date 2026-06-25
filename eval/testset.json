@@ -1,0 +1,82 @@
+{
+  "description": "Hand-curated, corpus-grounded test set for the 5,000-recipe index (first 5,000 rows of data/full_dataset.csv). Each question names its specific dish so retrieval can find the gold recipe, and each reference answer is grounded only in that recipe. Gold ids are positional recipe ids in the index. Frozen so numbers stay comparable across runs.",
+  "items": [
+    {
+      "id": "q001",
+      "question": "How do I make a slow-cooker potted beef roast with cream of mushroom soup and barbecue sauce?",
+      "reference_answer": "Spread mashed garlic over a 3 to 4 lb beef chuck or cross-rib roast and sear it in oil in a heavy skillet on all sides. Put it in a crock-pot set on high with a can of cream of mushroom soup, 3/4 cup barbecue sauce, 1/2 cup wine or beer, and 2 tablespoons Wondra flour, and serve it over bow-tie or extra-wide noodles.",
+      "gold_ids": [2652],
+      "source_recipe_id": 2652
+    },
+    {
+      "id": "q002",
+      "question": "What goes into a broccoli and cauliflower salad with bacon and Cheddar, and how do I make the dressing?",
+      "reference_answer": "In a large bowl combine broccoli florets, cauliflower florets, crumbled fried bacon, chopped onion, and chopped tomato. In another bowl mix 1 cup mayonnaise, 1/3 cup sugar, and 2 tablespoons vinegar until smooth. Just before serving, pour the dressing over the salad, toss, and add 1/2 cup shredded Cheddar.",
+      "gold_ids": [3234],
+      "source_recipe_id": 3234
+    },
+    {
+      "id": "q003",
+      "question": "How do I make zucchini-slice mini pizzas under the broiler?",
+      "reference_answer": "Combine 3/4 cup garden-style spaghetti sauce with minced onion, black pepper, and oregano. Arrange 1/2-inch fresh zucchini slices on a cookie sheet coated with cooking spray, top each with the sauce and a mushroom slice, sprinkle with a mix of shredded Mozzarella and grated Parmesan, and broil until hot and bubbly.",
+      "gold_ids": [395],
+      "source_recipe_id": 395
+    },
+    {
+      "id": "q004",
+      "question": "How do I make an Orange Julius drink in the blender with fresh oranges and honey?",
+      "reference_answer": "Put a couple of oranges and 2 tablespoons honey in a blender, add crushed ice until it reaches the thickness you want, then add about 1 cup of milk to fill the blender and blend.",
+      "gold_ids": [593],
+      "source_recipe_id": 593
+    },
+    {
+      "id": "q005",
+      "question": "How do I make oven Swiss steak using an oven roasting bag?",
+      "reference_answer": "Shake 1 tablespoon flour inside an oven cooking bag, then add pieces of round or sirloin steak, a 16 oz can of Italian seasoned tomatoes, a dry envelope of Lipton onion soup mix, 1/4 cup water, and salt and pepper. Squeeze to mix, tie the bag, place it in a 9 x 13-inch pan, cut six 1/2-inch vent slits, and bake at 325 degrees for about 2 hours.",
+      "gold_ids": [771],
+      "source_recipe_id": 771
+    },
+    {
+      "id": "q006",
+      "question": "How do I brine and jar Grandma's dill pickles?",
+      "reference_answer": "Wash firm cucumbers and pack them into jars. To each quart add 1/2 teaspoon mustard seed, 1/2 teaspoon celery seed, 1 bay leaf, 1/2 teaspoon pickling spice, and a large piece of dill. Bring 5 quarts water, 1 cup salt, and 2 cups vinegar to a boil, fill the packed jars with the hot brine, and seal at once; they can be used after standing 1 week.",
+      "gold_ids": [4774],
+      "source_recipe_id": 4774
+    },
+    {
+      "id": "q007",
+      "question": "How do I make Spanish hamburger with tomato soup on the stovetop?",
+      "reference_answer": "Fry the hamburger until half done, then add finely chopped onion, green pepper, and celery and let it simmer 1/2 hour. Season with salt and pepper, stir in a 20 oz can of tomato soup, and simmer 2 hours, keeping the steam in for best results.",
+      "gold_ids": [475],
+      "source_recipe_id": 475
+    },
+    {
+      "id": "q008",
+      "question": "How do I marinate and bake Chinese five-spice chicken wings?",
+      "reference_answer": "Combine 2/3 cup soy sauce, 1/2 cup honey, 2 tablespoons vegetable oil, 2 minced garlic cloves, and 2 teaspoons Chinese Five Spice powder, and pour it over 2 1/2 lb chicken wings. Marinate 4 hours, then place the wings on a broiler rack and bake at 375 degrees for 45 minutes, turning and basting every 15 minutes.",
+      "gold_ids": [4156],
+      "source_recipe_id": 4156
+    },
+    {
+      "id": "q009",
+      "question": "How do I make a strawberry Jell-O salad with bananas, pecans, and Cool Whip?",
+      "reference_answer": "Dissolve 2 large packages of strawberry Jell-O in 2 cups boiling water, then stir in the rest of the water (4 cups hot water total). Let it begin to thicken, then add a pint of strawberries, 3 diced bananas, and 1 cup chopped pecans. Let it stand until firm, spread Cool Whip on top, and refrigerate.",
+      "gold_ids": [704],
+      "source_recipe_id": 704
+    },
+    {
+      "id": "q010",
+      "question": "How do I make a filled beef roll stuffed with rice and Swiss cheese?",
+      "reference_answer": "Combine a beaten egg, 1/4 cup milk, 1/2 cup finely crushed saltine crumbs, 1/4 cup chopped onion, 1/2 teaspoon salt, and a dash of pepper, then mix in 1 lb ground beef. Pat it into a 10 x 8-inch rectangle on waxed paper. Mix 1 cup cooked rice, shredded process Swiss cheese, and chopped green pepper and pat it onto the meat leaving a 1-inch margin. Roll jelly-roll fashion from the narrow side, seal the seam and ends, and bake seam side down at 350 degrees for 35 minutes; let stand 5 minutes before serving.",
+      "gold_ids": [3552],
+      "source_recipe_id": 3552
+    },
+    {
+      "id": "q011",
+      "question": "How do I make chicken Creole starting with a roux, served over rice?",
+      "reference_answer": "Heat 1/4 cup vegetable oil in a heavy skillet, stir in 1/4 cup flour, and stir constantly until it turns the color of a copper penny, about 5 minutes. Reduce heat, add chopped green pepper and onion, and cook until tender. Add 2 cups cooked chicken, a 28 oz can of stewed tomatoes, Worcestershire sauce, minced garlic, soy sauce, sugar, salt, pepper, and hot sauce; cover and simmer about 20 minutes, then serve over hot cooked rice.",
+      "gold_ids": [3425],
+      "source_recipe_id": 3425
+    }
+  ]
+}

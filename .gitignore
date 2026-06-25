@@ -12,3 +12,6 @@ data/*
 # Python noise
 __pycache__/
 *.pyc
+
+
+HANDOFF.md

@@ -28,6 +28,16 @@ SYSTEM_PROMPT = (
     "so plainly rather than inventing details."
 )
 
+# Closed-book prompt: the "no-RAG" baseline for the ablation. The model answers from its
+# own parametric memory with no retrieved context. We push it to commit to one concrete
+# recipe (rather than refuse) so its answer makes measurable claims to score for
+# hallucination against the gold recipe.
+CLOSED_BOOK_SYSTEM = (
+    "You are a helpful cooking advisor. Answer the user's question from your own culinary "
+    "knowledge with concrete, specific steps and ingredients. Give your single best recipe "
+    "or answer; do not refuse or say you lack a specific recipe."
+)
+
 _client: OpenAI | None = None
 
 
@@ -77,6 +87,21 @@ def generate_answer(query: str, results: list[Result]) -> str:
     response = client.chat.completions.create(
         model=config.CHAT_MODEL,
         messages=build_messages(query, results),
+        temperature=config.TEMPERATURE,
+        max_tokens=config.MAX_TOKENS,
+    )
+    return (response.choices[0].message.content or "").strip()
+
+
+def generate_answer_closed_book(query: str) -> str:
+    """Answer with NO retrieved context — the no-RAG baseline for the ablation harness."""
+    client = _get_client()
+    response = client.chat.completions.create(
+        model=config.CHAT_MODEL,
+        messages=[
+            {"role": "system", "content": CLOSED_BOOK_SYSTEM},
+            {"role": "user", "content": query},
+        ],
         temperature=config.TEMPERATURE,
         max_tokens=config.MAX_TOKENS,
     )

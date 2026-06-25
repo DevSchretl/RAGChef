@@ -25,10 +25,10 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
 INDEX_DIR = PROJECT_ROOT / "index"  # built by ingest.py; gitignored
 
-# The recipe corpus. Defaults to the tiny committed sample so the pipeline runs out of
-# the box. Point CSV_PATH at the full RecipeNLG `full_dataset.csv` once you've
-# downloaded it from Kaggle (paultimothymooney/recipenlg).
-CSV_PATH = Path(os.getenv("RAGCHEF_CSV", DATA_DIR / "sample_recipes.csv"))
+# The recipe corpus. Defaults to the full RecipeNLG dataset that now lives in data/.
+# For a quick smoke test without the 2.2 GB file, override with
+# RAGCHEF_CSV=data/sample_recipes.csv.
+CSV_PATH = Path(os.getenv("RAGCHEF_CSV", DATA_DIR / "full_dataset.csv"))
 
 # Where ingest.py writes the index (the "vector store"). Two small files:
 EMBEDDINGS_PATH = INDEX_DIR / "embeddings.npy"   # float32 matrix, shape (N, dim)
@@ -37,9 +37,11 @@ METADATA_PATH = INDEX_DIR / "metadata.json"      # list of N recipe records
 # --------------------------------------------------------------------------------------
 # Corpus / retrieval knobs
 # --------------------------------------------------------------------------------------
-# How many CSV rows to index. Start SMALL — a few hundred — so ingest is fast and the
-# artifacts stay tiny. Scale up only once the end-to-end loop works.
-CORPUS_SIZE = int(os.getenv("RAGCHEF_CORPUS_SIZE", "200"))
+# How many CSV rows to index (the first N rows). A few thousand gives the retrieval eval
+# enough distractors to be discriminating while keeping ingest a one-time minute-ish and
+# the artifacts tiny (~15 MB at 5k). The committed eval test set is grounded in these first
+# rows, so don't lower this below the gold ids it references.
+CORPUS_SIZE = int(os.getenv("RAGCHEF_CORPUS_SIZE", "5000"))
 
 # How many recipes to retrieve and feed to the LLM per question.
 TOP_K = int(os.getenv("RAGCHEF_TOP_K", "4"))
@@ -72,4 +74,25 @@ EMBEDDING_MODEL = os.getenv(
 # Low temperature -> more grounded, less inventive answers. We want the model to lean on
 # the retrieved recipes, not improvise.
 TEMPERATURE = float(os.getenv("RAGCHEF_TEMPERATURE", "0.2"))
-MAX_TOKENS = int(os.getenv("RAGCHEF_MAX_TOKENS", "600"))
+# Enough room for a full recipe answer; 600 was clipping multi-ingredient answers mid-list.
+MAX_TOKENS = int(os.getenv("RAGCHEF_MAX_TOKENS", "1024"))
+
+# --------------------------------------------------------------------------------------
+# Evaluation (Phase 3)
+# --------------------------------------------------------------------------------------
+EVAL_DIR = PROJECT_ROOT / "eval"
+TESTSET_PATH = EVAL_DIR / "testset.json"     # frozen, curated test questions (committed)
+GENERAL_TESTSET_PATH = EVAL_DIR / "testset.general.json"  # general cooking Qs (ablation only)
+REPORTS_DIR = EVAL_DIR / "reports"           # eval outputs (committed)
+REPORT_PATH = REPORTS_DIR / "report.md"      # single report, overwritten each run (all test data)
+ABLATION_REPORT_PATH = REPORTS_DIR / "ablation.md"  # RAG vs no-RAG comparison report
+HISTORY_PATH = REPORTS_DIR / "history.csv"   # one row per run — the cross-run ledger
+
+# k used by the retrieval metrics (hit@k / recall@k). Defaults to TOP_K so the eval
+# measures the same retrieval depth the app actually uses.
+EVAL_K = int(os.getenv("RAGCHEF_EVAL_K", str(TOP_K)))
+
+# The model that *judges* answers in the RAGAS-style metrics (Tier 2, added next slice).
+# Defaults to the chat model, but point it at a different/stronger model when you can, so
+# the system isn't grading its own homework.
+JUDGE_MODEL = os.getenv("RAGCHEF_JUDGE_MODEL", CHAT_MODEL)

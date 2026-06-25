@@ -1,0 +1,40 @@
+{
+  "description": "General cooking questions for the RAG-vs-no-RAG ablation (eval/run_ablation.py) ONLY — not part of the retrieval eval. These are broad questions a closed-book model can attempt; each is bound to a real, well-formed gold recipe in the 5,000-recipe index so both arms can be scored for groundedness against the same source.",
+  "items": [
+    {
+      "id": "g001",
+      "question": "How do I make chewy chocolate chip cookies from scratch?",
+      "reference_answer": "Combine 3 1/2 cups flour and 1 teaspoon baking soda and set aside. Beat 1 1/2 cups softened margarine with 1 cup packed brown sugar, 1 cup granulated sugar, 1 teaspoon vanilla, and 2 eggs until light and fluffy. Blend in the flour mixture, stir in a 12-oz package of semi-sweet chocolate chips, and drop by tablespoons 2 inches apart onto ungreased baking sheets. Bake at 375 degrees for 12 to 15 minutes until golden brown, being careful not to overbake.",
+      "gold_ids": [2846],
+      "source_recipe_id": 2846
+    },
+    {
+      "id": "g002",
+      "question": "How do I make banana bread with overripe bananas?",
+      "reference_answer": "Beat 5 overripe bananas until smooth, then add 5 eggs, 1 tablespoon butter, 1/4 teaspoon each of salt, baking powder, and baking soda, 4 cups flour, 4 cups sugar, and 1 cup milk. Grease three 9-inch loaf pans and bake at 350 degrees for about 45 minutes until the top is brown.",
+      "gold_ids": [2117],
+      "source_recipe_id": 2117
+    },
+    {
+      "id": "g003",
+      "question": "How do I make baked macaroni and cheese from scratch?",
+      "reference_answer": "Cook 2 cups macaroni in salted water until tender, then put it in a casserole dish and add 2 1/2 cups milk, 8 oz cheese, pepper, and a dot of butter. Top with bread crumbs and bake at 325 degrees for about 30 minutes until browned.",
+      "gold_ids": [1543],
+      "source_recipe_id": 1543
+    },
+    {
+      "id": "g004",
+      "question": "How do I make homemade pizza dough from scratch?",
+      "reference_answer": "Dissolve 1 package of yeast with 1 teaspoon sugar in 1/2 cup warm water. In a large bowl combine 5 cups flour, 1/2 teaspoon salt, the yeast mixture, and 1 3/4 cups warm water. Mix, then knead on a floured surface for a few minutes. Put the dough in a greased bowl, cover, and let rise 1 hour. Spread it onto a greased pizza pan, let rise another 1/2 hour, and bake at 350 degrees until the bottom is brown.",
+      "gold_ids": [3618],
+      "source_recipe_id": 3618
+    },
+    {
+      "id": "g005",
+      "question": "How do I make a simple guacamole dip?",
+      "reference_answer": "Combine 1 mashed avocado with 1 finely chopped small tomato and 1/2 finely chopped small onion. Season to taste with salt, garlic, and pepper, add the juice of 1/2 lime or lemon, and stir in a little vinegar or oil for a creamier texture, plus a touch of Tabasco sauce if you want it hotter.",
+      "gold_ids": [4930],
+      "source_recipe_id": 4930
+    }
+  ]
+}
