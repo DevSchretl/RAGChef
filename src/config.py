@@ -37,11 +37,12 @@ METADATA_PATH = INDEX_DIR / "metadata.json"      # list of N recipe records
 # --------------------------------------------------------------------------------------
 # Corpus / retrieval knobs
 # --------------------------------------------------------------------------------------
-# How many CSV rows to index (the first N rows). A few thousand gives the retrieval eval
-# enough distractors to be discriminating while keeping ingest a one-time minute-ish and
-# the artifacts tiny (~15 MB at 5k). The committed eval test set is grounded in these first
-# rows, so don't lower this below the gold ids it references.
-CORPUS_SIZE = int(os.getenv("RAGCHEF_CORPUS_SIZE", "5000"))
+# How many CSV rows to index (the first N rows). 50k maximizes near-duplicate density so the
+# hard eval set (rare-keyword + near-duplicate-disambiguation questions) has real distractor
+# pressure for dense retrieval. Ingest is a one-time ~22 min at ~37 docs/sec; index ~150 MB.
+# The committed eval test set is grounded in these first rows, so don't lower this below the
+# gold ids it references.
+CORPUS_SIZE = int(os.getenv("RAGCHEF_CORPUS_SIZE", "50000"))
 
 # How many recipes to retrieve and feed to the LLM per question.
 TOP_K = int(os.getenv("RAGCHEF_TOP_K", "4"))

@@ -1,234 +1,317 @@
-# RAGChef eval — phase1-dense-5k
+# RAGChef eval — phase1-dense-hard
 
-2026-06-24T00:16:08 · 11 questions · k=4 · judge on
+2026-07-02T18:57:52 · 24 questions · k=4 · judge on
 
-Models: chat=`google/gemma-4-e4b`, judge=`google/gemma-4-e4b`, embed=`text-embedding-nomic-embed-text-v1.5` · corpus=5000
+Models: chat=`google/gemma-4-e4b`, judge=`google/gemma-4-e4b`, embed=`text-embedding-nomic-embed-text-v1.5` · corpus=50000
 
 ## Summary
 
 | metric | score |
 |--------|-------|
-| hit@4 | 1.000 |
-| recall@4 | 1.000 |
-| MRR | 0.955 |
-| faithfulness | 0.978 |
-| answer_relevancy | 0.840 |
-| context_precision | 0.929 |
-| context_recall | 1.000 |
-| **hallucination_rate** | **0.022** |
+| hit@4 | 0.583 |
+| recall@4 | 0.481 |
+| MRR | 0.486 |
+| faithfulness | 0.792 |
+| answer_relevancy | 0.853 |
+| context_precision | 0.601 |
+| context_recall | 0.708 |
+| **hallucination_rate** | **0.208** |
 
 ## Questions
 
-### q001 — hit — gold [2652]
+### q001 — hit — gold [6173]
 
-**Q:** How do I make a slow-cooker potted beef roast with cream of mushroom soup and barbecue sauce?
+**Q:** I want a quick white sauce without making a roux first — which recipe uses Gold Medal Wondra instant flour?
 
-**Reference:** Spread mashed garlic over a 3 to 4 lb beef chuck or cross-rib roast and sear it in oil in a heavy skillet on all sides. Put it in a crock-pot set on high with a can of cream of mushroom soup, 3/4 cup barbecue sauce, 1/2 cup wine or beer, and 2 tablespoons Wondra flour, and serve it over bow-tie or extra-wide noodles.
+**Reference:** Mix 1 cup milk, 2 tablespoons Gold Medal Wondra flour, 1/4 teaspoon salt, 1/8 teaspoon white pepper, and 2 tablespoons margarine in a 1-quart saucepan. Heat to a boil over medium heat, stirring constantly, then boil and stir for 1 minute; it makes 1 cup of sauce.
 
-**Retrieved:** [2652] Potted Beef · [4688] Crock-Pot Sweet And Sour Beef And Vegetables · [2123] Crock-Pot Beef Tips And Gravy · [3055] Savory Pot Roast
+**Retrieved:** [6173] One-Step White Sauce · [12645] Quick White Sauce · [15662] Rolls With Gold Medal Flour · [31087] Instant Delite
 
-**Answer:** To make this dish, you can follow the directions provided in **Potted Beef**.
+**Answer:** The recipe that uses Gold Medal wondra flour and is a white sauce is **One-Step White Sauce**.
 
-The process involves:
-1.  Spreading half of the mashed garlic on a large, flat side of the roast and searing it in hot oil in a heavy skillet or pot.
-2.  Searing the remaining sides and edges of the roast.
-3.  Setting the roast aside.
-4.  Opening the soup can and emptying its contents into a crock-pot set on high.
+**Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.871 · context_precision 1.000 · context_recall 1.000
 
-**Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.674 · context_precision 0.806 · context_recall 1.000
+### q002 — hit — gold [20163]
 
-### q002 — hit — gold [3234]
+**Q:** Which popover recipe is flavored with Cheddar and dill and is made with Wondra flour?
 
-**Q:** What goes into a broccoli and cauliflower salad with bacon and Cheddar, and how do I make the dressing?
+**Reference:** Heat the oven to 450 degrees and grease custard or muffin cups. Beat 2 eggs, then stir in 1 cup Gold Medal Wondra flour, 1 cup milk, 1/4 cup shredded Cheddar, 1/2 teaspoon salt, and 1/2 teaspoon dried dill just until smooth. Fill the cups, bake 25 minutes, then reduce to 325 degrees and bake 10 to 15 minutes more until deep golden brown.
 
-**Reference:** In a large bowl combine broccoli florets, cauliflower florets, crumbled fried bacon, chopped onion, and chopped tomato. In another bowl mix 1 cup mayonnaise, 1/3 cup sugar, and 2 tablespoons vinegar until smooth. Just before serving, pour the dressing over the salad, toss, and add 1/2 cup shredded Cheddar.
+**Retrieved:** [20163] Cheddar-Dill Popovers · [23583] Popovers · [7684] Popovers(Portuguese) · [30475] Cheddar Cheese Popovers
 
-**Retrieved:** [3234] Broccoli Salad · [3385] Broccoli Salad · [1572] Broccoli Cauliflower Salad · [1181] Broccoli Salad
+**Answer:** The recipe that is flavored with Cheddar, dill, and uses Wondra flour is **Cheddar-Dill Popovers**.
 
-**Answer:** Based on the **Broccoli Salad** recipe, you can make a salad with broccoli, cauliflower, bacon, and Cheddar cheese.
+**Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.760 · context_precision 1.000 · context_recall 1.000
 
-**Ingredients:**
-*   1 bunch broccoli, separated into florets
-*   1 head cauliflower, separated into florets
-*   8 bacon strips, fried and crumbled or 1/2 c. bacon bits
-*   1/3 c. chopped onion
-*   1 c. chopped tomato
-*   1/2 c. shredded Cheddar cheese
+### q003 — hit — gold [37876]
 
-**To make the dressing:**
-In a separate bowl, combine mayonnaise, sugar, and vinegar; mix until smooth.
+**Q:** How do I make a ham glaze using Dr. Pepper?
 
-**Directions Summary (from Broccoli Salad):**
-1.  Combine the broccoli, cauliflower, bacon, onion, and tomatoes in a large salad bowl.
-2.  Pour the prepared dressing over the salad just before serving and toss.
+**Reference:** Mix 1 cup Dr. Pepper with 1/2 cup brown sugar. Place the ham in a baking pan and baste it frequently with the sauce as it bakes; you can still decorate with cloves or cherries.
 
-**Scores:** rr 1.00 · faithfulness 0.900 · answer_relevancy 0.802 · context_precision 0.917 · context_recall 1.000
+**Retrieved:** [37876] Dr.  Pepper Glaze · [44544] Glaze For Ham · [47128] Honey Orange Glaze Ham · [21622] Beer Glaze For Ham
 
-### q003 — hit — gold [395]
+**Answer:** To make a ham glaze using Dr. Pepper, follow the instructions in **Dr. Pepper Glaze**:
 
-**Q:** How do I make zucchini-slice mini pizzas under the broiler?
+1. Mix 1 c. Dr. Pepper and 1/2 c. brown sugar.
+2. Place ham in a baking pan and baste frequently with the sauce.
+3. You can use cloves or cherries for decoration.
 
-**Reference:** Combine 3/4 cup garden-style spaghetti sauce with minced onion, black pepper, and oregano. Arrange 1/2-inch fresh zucchini slices on a cookie sheet coated with cooking spray, top each with the sauce and a mushroom slice, sprinkle with a mix of shredded Mozzarella and grated Parmesan, and broil until hot and bubbly.
+**Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.919 · context_precision 1.000 · context_recall 1.000
 
-**Retrieved:** [1969] Broiled Zucchini Squash · [395] Zucchini Pizzas · [241] Zucchini In Tomato Juice(From Weight Watchers) · [3168] Mini Pizza
+### q004 — hit — gold [48419]
 
-**Answer:** To make zucchini pizzas under the broiler, follow the directions provided in **Zucchini Pizzas**:
+**Q:** Which strawberry pie is thickened with a strawberry Danish Junket dessert mix instead of cornstarch or gelatin?
 
-1.  Combine the spaghetti sauce, minced onions, black pepper, and dried oregano in a small bowl.
-2.  In a separate step, combine the shredded part-skim Mozzarella cheese and grated Parmesan cheese.
-3.  Place the zucchini coins on a cookie sheet that has been coated with vegetable cooking spray (keeping them approximately 1-inch apart).
-4.  Top each slice with the sauce mixture, followed by a mushroom slice.
-5.  Sprinkle the toppings with the combined cheese mixture.
-6.  Bake under the broiler until the pizza is hot and bubbly.
+**Reference:** Mix 1 quart strawberries with 1 cup powdered sugar and let stand. Drain the juice and add water to make 2 cups, cook briefly, then stir in a box of strawberry Danish Junket mix. Cool, fold in the berries, pour into a baked pie shell, and top with whipped cream.
 
-**Scores:** rr 0.50 · faithfulness 1.000 · answer_relevancy 0.859 · context_precision 0.500 · context_recall 1.000
+**Retrieved:** [48419] Strawberry Pie · [12834] Strawberry Pie · [7767] Strawberry Pie · [18558] Strawberry Pie
 
-### q004 — hit — gold [593]
-
-**Q:** How do I make an Orange Julius drink in the blender with fresh oranges and honey?
-
-**Reference:** Put a couple of oranges and 2 tablespoons honey in a blender, add crushed ice until it reaches the thickness you want, then add about 1 cup of milk to fill the blender and blend.
-
-**Retrieved:** [593] Orange Julius · [4245] Orange Julius · [2711] Orange Julius · [2295] Orange Julius
-
-**Answer:** To make an Orange Julius drink using fresh oranges and honey, follow the instructions provided in the **Orange Julius** recipe:
-
-1.  Put a couple of oranges and 2 Tbsp. of honey into the blender.
-2.  Add crushed ice until you reach your desired thickness.
-3.  Pour enough milk into the blender to fill it, which is approximately 1 cup.
-
-**Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.877 · context_precision 1.000 · context_recall 1.000
-
-### q005 — hit — gold [771]
-
-**Q:** How do I make oven Swiss steak using an oven roasting bag?
-
-**Reference:** Shake 1 tablespoon flour inside an oven cooking bag, then add pieces of round or sirloin steak, a 16 oz can of Italian seasoned tomatoes, a dry envelope of Lipton onion soup mix, 1/4 cup water, and salt and pepper. Squeeze to mix, tie the bag, place it in a 9 x 13-inch pan, cut six 1/2-inch vent slits, and bake at 325 degrees for about 2 hours.
-
-**Retrieved:** [771] Oven Swiss Steak · [2407] Oven Swiss Steak · [4207] Swiss Steak · [3843] Swiss Steak
-
-**Answer:** To make oven Swiss steak using an oven cooking bag, follow these steps from **Oven Swiss Steak**:
-
-1. Shake 1 tablespoon flour in the oven cooking bag.
-2. Add all ingredients to the bag and squeeze to mix.
-3. Tie the bag and place it in a 9 x 13-inch pan.
-4. Slit the bag with six (1/2") cuts to vent.
-5. Bake at 325° for approximately 2 hours.
-6. When ready to serve, slit open the bag and put it back in the pan.
-
-**Scores:** rr 1.00 · faithfulness 0.857 · answer_relevancy 0.904 · context_precision 1.000 · context_recall 1.000
-
-### q006 — hit — gold [4774]
-
-**Q:** How do I brine and jar Grandma's dill pickles?
-
-**Reference:** Wash firm cucumbers and pack them into jars. To each quart add 1/2 teaspoon mustard seed, 1/2 teaspoon celery seed, 1 bay leaf, 1/2 teaspoon pickling spice, and a large piece of dill. Bring 5 quarts water, 1 cup salt, and 2 cups vinegar to a boil, fill the packed jars with the hot brine, and seal at once; they can be used after standing 1 week.
-
-**Retrieved:** [4774] Grandma'S Best Dill Pickles · [480] Ma'S Dill Pickles · [2942] Dill Pickles · [3049] Pickles
-
-**Answer:** To brine and jar Grandma's dill pickles, follow these steps according to **Grandma'S Best Dill Pickles**:
-
-1.  Wash cucumbers and pack them into jars.
-2.  For each quart of jars, add 1/2 teaspoon mustard seed, 1/2 teaspoon celery seed, 1 bay leaf, 1/2 teaspoon pickling spice, and 1 large piece of dill.
-3.  Bring the water, salt, and vinegar to a boiling point; then fill the cucumber-filled jars with this syrup immediately.
-4.  Seal the jars at once.
-
-The pickles can be used after one week's standing.
-
-**Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.834 · context_precision 1.000 · context_recall 1.000
-
-### q007 — hit — gold [475]
-
-**Q:** How do I make Spanish hamburger with tomato soup on the stovetop?
-
-**Reference:** Fry the hamburger until half done, then add finely chopped onion, green pepper, and celery and let it simmer 1/2 hour. Season with salt and pepper, stir in a 20 oz can of tomato soup, and simmer 2 hours, keeping the steam in for best results.
-
-**Retrieved:** [475] Spanish Hamburger #1 · [3522] Hamburger Soup · [1846] Hamburger Hot Dish · [551] Easy Hot Dish
-
-**Answer:** To make Spanish Hamburger with tomato soup, follow the directions provided in **Spanish Hamburger #1**:
-
-1.  Fry the hamburger until it is half done.
-2.  Cut the onion, green pepper, and celery into fine pieces and add them to the pot.
-3.  Let the mixture simmer for 1/2 hour.
-4.  Add salt and pepper, then pour in the tomato soup. Simmer the dish for 2 hours.
-5.  Keep steam in for the best results.
+**Answer:** The recipe that thickens the pie with a strawberry Danish Junket mix instead of cornstarch or gelatin is the first **Strawberry Pie**.
 
 **Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.927 · context_precision 1.000 · context_recall 1.000
 
-### q008 — hit — gold [4156]
+### q005 — miss — gold [38276]
 
-**Q:** How do I marinate and bake Chinese five-spice chicken wings?
+**Q:** Which biscuit recipe calls specifically for Clabber Girl baking powder?
 
-**Reference:** Combine 2/3 cup soy sauce, 1/2 cup honey, 2 tablespoons vegetable oil, 2 minced garlic cloves, and 2 teaspoons Chinese Five Spice powder, and pour it over 2 1/2 lb chicken wings. Marinate 4 hours, then place the wings on a broiler rack and bake at 375 degrees for 45 minutes, turning and basting every 15 minutes.
+**Reference:** Combine 1 1/2 cups flour, a dash of salt, 2 tablespoons Clabber Girl baking powder, and 3 tablespoons oil, then add buttermilk until the dough is moist and sticky. Turn it out onto a floured surface, press it out by hand, and cut the biscuits.
 
-**Retrieved:** [4156] Chinese Chicken Wings · [4241] Chinese Chicken Wings · [2660] Chicken Wings · [2616] Chicken Wing Drumsticks
+**Retrieved:** [33834] Biscuits · [12806] Old-Time Biscuit Pudding · [33938] Baking Powder Biscuits · [42024] Flaky Baking Powder Biscuits
 
-**Answer:** To marinate and bake Chinese Five Spice Chicken Wings, follow these steps using the instructions from the **Chinese Chicken Wings** recipe:
+**Answer:** The provided recipes do not specify or call for Clabber Girl baking powder.
 
-**Marinating:**
-1. Combine the soy sauce, honey, oil, garlic, and Chinese Five Spice powder.
-2. Pour this mixture over the chicken wings.
-3. Marinate for 4 hours.
+**Scores:** rr 0.00 · faithfulness 0.000 · answer_relevancy 0.863 · context_precision 0.000 · context_recall 0.000
 
-**Baking:**
-1. Remove the wings and place them on a broiler rack.
-2. Bake at 375° for 45 minutes, making sure to turn and baste every 15 minutes.
+### q006 — miss — gold [2400]
 
-**Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.887 · context_precision 1.000 · context_recall 1.000
+**Q:** Which onion soup uses three kinds of onion and a little Kitchen Bouquet?
 
-### q009 — hit — gold [704]
+**Reference:** Saute 1 red, 2 white, and 3 yellow onions with garlic in a stick of margarine until tender. Add sugar, thyme, black pepper, caraway seed, a bay leaf, Worcestershire sauce, 1/2 teaspoon Kitchen Bouquet, and 2 quarts beef stock, and cook about 1 hour in a crock-pot on high or simmer on the stove.
 
-**Q:** How do I make a strawberry Jell-O salad with bananas, pecans, and Cool Whip?
+**Retrieved:** [41058] "Venus De Milo" Style Soup · [39657] Joyce Yawn'S French Onion Soup · [25441] French Onion Soup(Serves 4) · [17066] Sarah Matt'S Onion Soup
 
-**Reference:** Dissolve 2 large packages of strawberry Jell-O in 2 cups boiling water, then stir in the rest of the water (4 cups hot water total). Let it begin to thicken, then add a pint of strawberries, 3 diced bananas, and 1 cup chopped pecans. Let it stand until firm, spread Cool Whip on top, and refrigerate.
+**Answer:** Based on the provided recipes, there is no mention of an onion soup using three kinds of onion or Kitchen Bouquet.
 
-**Retrieved:** [704] Strawberry Salad · [941] Strawberry Salad · [526] Strawberry Salad · [2790] Jello Salad
+**Scores:** rr 0.00 · faithfulness 0.000 · answer_relevancy 0.854 · context_precision 0.250 · context_recall 0.000
 
-**Answer:** To make a strawberry salad with bananas, pecans, and Cool Whip, you can follow the directions in **Strawberry Salad** (Recipe 1).
+### q007 — hit — gold [8640]
 
-The steps are:
-1. Mix the Jell-O with 2 cups of boiling water, then add the rest of the water. Let it set until it begins to thicken.
-2. Add the fruit and nuts.
-3. Allow it to stand until firm.
-4. Spread Cool Whip on top.
-5. Refrigerate.
+**Q:** Which blueberry pie filling is thickened with Minute tapioca?
 
-**Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.826 · context_precision 1.000 · context_recall 1.000
+**Reference:** Combine 2 tablespoons Minute tapioca with brown sugar, lemon juice or vinegar, cold water, sugar, salt, a quart of blueberries, and butter, then cook and pour the filling into a baked pie shell.
 
-### q010 — hit — gold [3552]
+**Retrieved:** [8640] Blueberry Pie(You Won'T Feel Blue After Eating This Pie.) · [28185] Fresh Blueberry Pie · [39479] Blueberry Pie · [29466] Blueberry Pie
 
-**Q:** How do I make a filled beef roll stuffed with rice and Swiss cheese?
+**Answer:** The blueberry pie filling thickened with Minute tapioca is found in **Blueberry Pie(You Won'T Feel Blue After Eating This Pie.)**.
 
-**Reference:** Combine a beaten egg, 1/4 cup milk, 1/2 cup finely crushed saltine crumbs, 1/4 cup chopped onion, 1/2 teaspoon salt, and a dash of pepper, then mix in 1 lb ground beef. Pat it into a 10 x 8-inch rectangle on waxed paper. Mix 1 cup cooked rice, shredded process Swiss cheese, and chopped green pepper and pat it onto the meat leaving a 1-inch margin. Roll jelly-roll fashion from the narrow side, seal the seam and ends, and bake seam side down at 350 degrees for 35 minutes; let stand 5 minutes before serving.
+**Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.952 · context_precision 1.000 · context_recall 1.000
 
-**Retrieved:** [3552] Filled Beef Roll · [3804] Ham And Swiss Rolls · [4207] Swiss Steak · [3961] Sausage And Wild Rice
+### q008 — hit — gold [28646]
 
-**Answer:** To make a filled beef roll stuffed with rice and Swiss cheese, follow the directions in **Filled Beef Roll**:
+**Q:** Which pumpkin tea loaf is spiced with cardamom along with cloves and cinnamon?
 
-1.  Combine the cooked rice, shredded Swiss cheese, and chopped green pepper.
-2.  Pat this mixture onto the meat, making sure to leave a 1-inch margin around the edge.
-3.  Roll the beef roll up like a jelly roll, starting with the narrow side.
-4.  Seal both the ends and the side seam.
-5.  Place the roll in an 11 x 7 x 1 1/2-inch baking pan, seam side down.
-6.  Bake at 350° for 35 minutes, and let it stand for 5 minutes before serving.
+**Reference:** Beat shortening and sugar, then beat in 4 eggs, a 1-lb can of pumpkin, and water. Combine all-purpose and whole wheat flours with soda, salt, baking powder, ground cardamom, cloves, and cinnamon; stir into the pumpkin mixture, fold in raisins and chopped pecans, and bake in greased loaf pans.
 
-**Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.792 · context_precision 1.000 · context_recall 1.000
+**Retrieved:** [49694] Pumpkin-N-Spice Tea Bread · [19835] Pumpkin Tea Bread · [28646] Pumpkin-Pecan Tea Loaf · [41319] Halloween Bread(A Spook Brings This To Us)
 
-### q011 — hit — gold [3425]
+**Answer:** The **Pumpkin-Pecan Tea Loaf** is spiced with cardamom, ground cloves, and ground cinnamon.
 
-**Q:** How do I make chicken Creole starting with a roux, served over rice?
+**Scores:** rr 0.33 · faithfulness 1.000 · answer_relevancy 0.842 · context_precision 0.333 · context_recall 1.000
 
-**Reference:** Heat 1/4 cup vegetable oil in a heavy skillet, stir in 1/4 cup flour, and stir constantly until it turns the color of a copper penny, about 5 minutes. Reduce heat, add chopped green pepper and onion, and cook until tender. Add 2 cups cooked chicken, a 28 oz can of stewed tomatoes, Worcestershire sauce, minced garlic, soy sauce, sugar, salt, pepper, and hot sauce; cover and simmer about 20 minutes, then serve over hot cooked rice.
+### q009 — miss — gold [214]
 
-**Retrieved:** [3425] Chicken Creole · [3956] Cajun Chicken Creole · [302] Chicken Over Rice · [3303] Chicken And Wild Rice
+**Q:** Which party punch gets its color and flavor from grenadine syrup and ginger ale?
 
-**Answer:** To make Chicken Creole starting with a roux and serving it over rice, follow the directions in **Chicken Creole**:
+**Reference:** Combine thawed frozen lemonade and orange juice concentrates, 6 cups water, and grenadine syrup in a punch bowl. Just before serving, add ice and stir in a quart of chilled ginger ale, garnishing each cup with a thin lemon slice and a maraschino cherry.
 
-1.  Heat vegetable oil in a heavy skillet until hot, then stir in 1/4 cup flour. Stir constantly until the mixture is about the color of a copper penny (this takes about 5 minutes).
-2.  Reduce the heat and add the pepper and onion; cook until tender (about 10 minutes), stirring constantly.
-3.  Add the chicken, tomatoes, Worcestershire sauce, garlic, soy sauce, sugar, pepper, salt, and hot sauce.
-4.  Cover and simmer for about 20 minutes.
-5.  Serve the dish over rice.
+**Retrieved:** [35775] Party Punch · [42892] Pink Punch · [609] Pretty Party Punch · [37683] Party Punch
 
-**Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.851 · context_precision 1.000 · context_recall 1.000
+**Answer:** Based on the recipes provided, none of the party punches listed use grenadine syrup.
+
+**Scores:** rr 0.00 · faithfulness 1.000 · answer_relevancy 0.786 · context_precision 0.250 · context_recall 0.000
+
+### q010 — hit — gold [744]
+
+**Q:** Which spice cake is seasoned with both cardamom and cilantro, with apple, apricots, and raisins?
+
+**Reference:** Beat 4 eggs with 1 3/4 cups brown sugar and salt, then add allspice, cinnamon, cardamom, cilantro, ginger, and cloves. Cut walnuts, raisins, dried apricots, and an apple into pieces, toss them with the wheat flour, fold into the batter, and bake at 350 degrees.
+
+**Retrieved:** [744] "Spicy" Cake · [43931] Sun-Maid Raisin Nut Cake(Our Family Christmas Cake Since 1936) · [16416] Applesauce Raisin Spice Cake · [8942] Spice Cake
+
+**Answer:** The recipe that is seasoned with both cardamom and cilantro, and includes apple, apricots, and raisins, is **"Spicy" Cake**.
+
+**Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.901 · context_precision 1.000 · context_recall 1.000
+
+### q011 — hit — gold [47608]
+
+**Q:** Which root beer float is decorated like eyeballs with ice cream, candies, and gummy worms?
+
+**Reference:** Scoop vanilla ice cream into eyeball-sized balls and press a chocolate-coated candy into each as a pupil, then freeze. Fill serving glasses with chilled root beer to 2 inches from the top, add a small scoop of ice cream, drop in gummy worms and shoestring licorice as 'veins,' and top with the ice cream eyeballs.
+
+**Retrieved:** [47608] Eye-Scream Float · [49949] Root Sherbet Float · [35542] Ice Cream Float · [46604] Bubble Brew
+
+**Answer:** The root beer float decorated like eyeballs with ice cream, candies, and gummy worms is the **Eye-Scream Float**.
+
+**Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.872 · context_precision 1.000 · context_recall 1.000
+
+### q012 — miss — gold [2652]
+
+**Q:** Which slow-cooker beef roast thickens its gravy with Gold Medal Wondra flour and is served over bow-tie noodles?
+
+**Reference:** Spread mashed garlic over a 3 to 4 lb beef chuck or cross-rib roast and sear it in oil. Put it in a crock-pot on high with a can of cream of mushroom soup, 3/4 cup barbecue sauce, 1/2 cup wine or beer, and 2 tablespoons Gold Medal Wondra flour, and serve it over bow-tie or extra-wide noodles.
+
+**Retrieved:** [48536] Beef Roast · [46840] Italian Beef Au Jus · [45594] Slow Cooker Beef · [19740] Beef Roast Cooked In Crock-Pot
+
+**Answer:** Based on the recipes provided, there is no information regarding a slow-cooker beef roast that thickens its gravy with Gold Medal Wondra flour or specifies serving it over bow-tie noodles.
+
+**Scores:** rr 0.00 · faithfulness 0.000 · answer_relevancy 0.806 · context_precision 0.250 · context_recall 0.714
+
+### q013 — miss — gold [2888, 8775]
+
+**Q:** Among the many strawberry pies, which is the no-bake kind made with cream cheese and sweetened condensed milk (Eagle Brand), not a cooked cornstarch or gelatin glaze?
+
+**Reference:** Beat an 8-oz package of cream cheese with a can of sweetened condensed milk (Eagle Brand), then mix in lemon juice and fold in strawberries. Pour into a graham cracker or baked pie shell and chill or freeze — there is no cooked cornstarch or gelatin glaze.
+
+**Retrieved:** [38297] No Bake Strawberry Pie · [41339] No Bake Cheese Cake · [6659] Strawberry Cream Cheese Pie · [20079] No Bake Cherry Cheese Pie
+
+**Answer:** Based on the recipes provided, there is no recipe for a no-bake strawberry pie that uses both cream cheese and sweetened condensed milk (specifically mentioning Eagle Brand) while avoiding cornstarch or gelatin.
+
+**Scores:** rr 0.00 · faithfulness 0.000 · answer_relevancy 0.911 · context_precision 0.250 · context_recall 0.500
+
+### q014 — hit — gold [8042, 9379, 19984, 22976, 37768]
+
+**Q:** Which carrot cake includes both crushed pineapple and coconut in the batter?
+
+**Reference:** Mix flour, sugar, coconut, baking soda, cinnamon, and salt, then add beaten eggs, oil, grated carrots, chopped walnuts, a can of crushed pineapple, and vanilla. Pour into a greased and floured pan and bake at 325 to 350 degrees for 45 to 50 minutes.
+
+**Retrieved:** [24251] "Lite" Carrot Cake · [3839] Famous Carrot Cake · [22976] Carrot Cake · [40462] Carrot Cake
+
+**Answer:** The "Carrot Cake" recipe includes both crushed pineapple and coconut in the batter.
+
+**Scores:** rr 0.33 · faithfulness 1.000 · answer_relevancy 0.859 · context_precision 0.333 · context_recall 0.500
+
+### q015 — hit — gold [8208]
+
+**Q:** Which broccoli salad is dressed with sour cream, mayonnaise, and Ranch dressing mix (and includes cauliflower and peas) instead of the usual sugar-vinegar dressing?
+
+**Reference:** Mix broccoli and cauliflower florets, thawed frozen peas, sliced celery, and chopped green onions. Stir together an 8-oz carton of sour cream, 1 cup mayonnaise, and 2 packages of Ranch dressing mix, pour over the vegetables, and refrigerate several hours or overnight.
+
+**Retrieved:** [41391] Broccoli Cauliflower Salad · [8208] Broccoli Salad · [46353] Broccoli-Cauliflower Salad · [36099] Broccoli Salad
+
+**Answer:** The salad that uses sour cream, mayonnaise, and Ranch dressing mix (and includes cauliflower and peas) instead of a sugar-vinegar dressing is the **Broccoli Salad** ([Recipe 2]).
+
+**Scores:** rr 0.50 · faithfulness 1.000 · answer_relevancy 0.849 · context_precision 0.500 · context_recall 1.000
+
+### q016 — miss — gold [20932, 34944, 44209]
+
+**Q:** Which banana bread has raisins folded into the batter?
+
+**Reference:** Mash very ripe bananas and mix with the wet ingredients, then fold in the dry ingredients along with raisins, taking care not to overmix. Pour into a greased loaf pan and bake at 350 degrees.
+
+**Retrieved:** [29656] Banana Raisin Bread · [4771] Banana-Nut Raisin Bread · [6568] Banana Nut Bread With Raisins · [3119] Banana Nut Bread(Diabetic)
+
+**Answer:** Three of the recipes include raisins folded into the batter:
+
+*   **Banana Raisin Bread:** The directions instruct you to "Add raisins" before pouring over the dry ingredients.
+*   **Banana-Nut Raisin Bread:** In step 5, you are instructed to "Stir in chopped pecans and raisins."
+*   **Banana Nut Bread With Raisins:** The instructions state that after mixing everything else, you should "Add nuts and raisins last."
+
+**Scores:** rr 0.00 · faithfulness 1.000 · answer_relevancy 0.816 · context_precision 1.000 · context_recall 1.000
+
+### q017 — miss — gold [12778]
+
+**Q:** Which chocolate pie has dairy sour cream stirred into the cooked filling?
+
+**Reference:** Cook a mixture of granulated and brown sugar, salt, cornstarch, evaporated milk, and beaten egg yolks until thick, then stir in 1 cup dairy sour cream, butter, vanilla, and cocoa. Pour into a baked pie shell and top with whipped topping.
+
+**Retrieved:** [39324] Sour Cream Pie · [31260] Favorite Chocolate Cake With Sour Milk · [8261] The Best Chocolate Pie · [1230] Chocolate Pudding Or Pie Filling
+
+**Answer:** Based on the provided recipes, there is no chocolate pie that has dairy sour cream stirred into the cooked filling.
+
+**Scores:** rr 0.00 · faithfulness 0.000 · answer_relevancy 0.850 · context_precision 0.250 · context_recall 0.400
+
+### q018 — miss — gold [13619]
+
+**Q:** Which peanut butter pie is a no-bake frozen pie made with cream cheese and whipped topping in a chocolate crumb crust?
+
+**Reference:** Beat 1/3 cup creamy peanut butter with a 3-oz package of cream cheese and 2 tablespoons butter until smooth. Add confectioners sugar and milk, fold in an 8-oz carton of whipped topping, and pour into a chocolate crumb crust. Freeze at least 4 hours and serve frozen.
+
+**Retrieved:** [37371] No Bake Peanut Butter Pie · [42249] Peanut Butter Pie (No Bake) · [22823] No Bake Peanut Butter Pie · [16229] Southern Peanut Butter Pie
+
+**Answer:** Based on the recipes provided, there is no recipe that specifies using a chocolate crumb crust. The available crust options are graham cracker pie crust or a general baked pie shell.
+
+**Scores:** rr 0.00 · faithfulness 1.000 · answer_relevancy 0.629 · context_precision 0.250 · context_recall 0.333
+
+### q019 — miss — gold [5518, 21571]
+
+**Q:** Which pumpkin bread is sweetened with molasses?
+
+**Reference:** Combine the dry ingredients — whole wheat flour, sugar, salt, soda, baking powder, ginger, and nutmeg — then stir in 2/3 cup molasses, 2 cups pumpkin, a can of condensed milk, vanilla, and eggs. Pour into 2 greased loaf pans and bake at 350 degrees for 40 to 50 minutes.
+
+**Retrieved:** [4507] Molasses Bars · [4262] Old-Time Molasses Cake · [47908] Festive Pumpkin Or Sweet Potato Bread · [38526] Molasses Doughnuts
+
+**Answer:** Based on the provided recipes, the **Festive Pumpkin Or Sweet Potato Bread** uses sugar as its sweetener and does not list molasses as an ingredient.
+
+**Scores:** rr 0.00 · faithfulness 1.000 · answer_relevancy 0.859 · context_precision 0.000 · context_recall 0.250
+
+### q020 — hit — gold [36223, 44082]
+
+**Q:** Which cheese ball is a sweet dessert version with crushed pineapple, maraschino cherries, and pecans?
+
+**Reference:** Beat cream cheese with well-drained crushed pineapple and chopped maraschino cherries (plus a little chopped sweet pepper, onion, and salt), mold into a ball, and refrigerate overnight. Roll it in chopped pecans before serving.
+
+**Retrieved:** [36223] Cheese Ball · [49371] Cheese Ball · [22488] Pineapple Cheese Ball · [48056] Cheese Ball
+
+**Answer:** The cheese ball that includes crushed pineapple, maraschino cherries, and pecans is the **Cheese Ball** (Recipe 1).
+
+**Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.915 · context_precision 0.917 · context_recall 1.000
+
+### q021 — hit — gold [14709, 31605]
+
+**Q:** Which meat loaf is mixed and topped with mozzarella and Cheddar cheese and bound with tomato soup and stuffing?
+
+**Reference:** Mix 1 1/2 lb hamburger with a handful of stuffing, a can of tomato paste, crushed crackers, chopped onion, half a can of tomato soup, and handfuls of mozzarella and Cheddar. Put it in a loaf pan, top with the rest of the tomato soup and more mozzarella, and bake at 350 degrees for 1 hour.
+
+**Retrieved:** [14709] Meat Loaf · [27825] Meat Loaf · [10367] Double Cheese Meat Loaf · [18682] Meat Loaf
+
+**Answer:** The meat loaf that is mixed and topped with Mozzarella and Cheddar cheese, bound with tomato soup, and includes stuffing is the **Meat Loaf** (the first recipe listed).
+
+**Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.833 · context_precision 1.000 · context_recall 1.000
+
+### q022 — miss — gold [16875, 47550]
+
+**Q:** Which sugar cookies are made with dairy sour cream in the dough?
+
+**Reference:** Cream 1 cup shortening with 1 cup sugar, then add 1 cup dairy sour cream, 3 beaten egg yolks, and vanilla. Sift together flour, salt, baking soda, and baking powder, blend into the creamed mixture, chill, shape into balls, and bake.
+
+**Retrieved:** [28262] Sour Cream Sugar Cookie · [16087] Sour Milk Cookies · [39470] Sour Cream Softies · [14433] Sour Cream Cookies
+
+**Answer:** The sugar cookies made with dairy sour cream in the dough are the **Sour Cream Softies**.
+
+**Scores:** rr 0.00 · faithfulness 1.000 · answer_relevancy 0.913 · context_precision 0.333 · context_recall 0.286
+
+### q023 — hit — gold [9692, 11414, 29900]
+
+**Q:** Which pound cake has crushed pineapple and candied cherries folded into the batter?
+
+**Reference:** Cream 3 sticks of oleo with 6 eggs added one at a time, then beat in vanilla and a 1-lb box of powdered sugar. Gradually add flour, baking powder, chopped nuts, drained crushed pineapple, and candied cherries, and bake in a greased tube pan at 350 degrees for about 1 hour and 10 minutes.
+
+**Retrieved:** [35427] Pineapple Upside-Down Pound Cake · [9692] Pound Cake · [46018] Pineapple Pound Cake · [42113] Pineapple Pound Cake
+
+**Answer:** The recipe for **Pound Cake** includes both crushed pineapple, drained, and candied cherries in its ingredients list, which are added when you gradually add "flour and fruit" to the batter.
+
+**Scores:** rr 0.50 · faithfulness 1.000 · answer_relevancy 0.828 · context_precision 0.500 · context_recall 1.000
+
+### q024 — hit — gold [8328]
+
+**Q:** Which chili is thickened with a couple of handfuls of oatmeal and includes cocoa?
+
+**Reference:** Cook 5 lb coarse ground beef, then add a 64-oz can of tomato juice, salt, sugar, chili seasoning (Williams), and 3 cans of beans, and simmer about 20 minutes. Add chopped garlic and cook 5 minutes more, then stir in 3 tablespoons cocoa and a couple of handfuls of oatmeal and cook until the oatmeal disappears.
+
+**Retrieved:** [8328] Chili · [5141] Chili · [2607] Mexican-Style Hot Chocolate · [14881] Chili
+
+**Answer:** The chili that includes both cocoa and oatmeal is the first recipe listed as **Chili**. This recipe requires adding cocoa and oatmeal near the end of the cooking process, continuing to cook until the oatmeal disappears.
+
+**Scores:** rr 1.00 · faithfulness 1.000 · answer_relevancy 0.858 · context_precision 1.000 · context_recall 1.000
 

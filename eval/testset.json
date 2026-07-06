@@ -1,82 +1,197 @@
 {
-  "description": "Hand-curated, corpus-grounded test set for the 5,000-recipe index (first 5,000 rows of data/full_dataset.csv). Each question names its specific dish so retrieval can find the gold recipe, and each reference answer is grounded only in that recipe. Gold ids are positional recipe ids in the index. Frozen so numbers stay comparable across runs.",
+  "description": "Hand-curated HARD test set for the 50,000-recipe index (first 50,000 rows of data/full_dataset.csv). Deliberately difficult for pure dense retrieval, to leave headroom for Phase 2 (hybrid BM25 + rerank). Two categories: (1) rare-keyword — the query hinges on a distinctive ingredient/brand/technique token that dense embeddings under-weight but BM25 nails; (2) near-dup — among many same-title recipes, find the one(s) with a distinguishing detail (a reranker's job). gold_ids are positional recipe ids; near-dup items may list several valid siblings. Frozen so numbers stay comparable across runs.",
   "items": [
     {
       "id": "q001",
-      "question": "How do I make a slow-cooker potted beef roast with cream of mushroom soup and barbecue sauce?",
-      "reference_answer": "Spread mashed garlic over a 3 to 4 lb beef chuck or cross-rib roast and sear it in oil in a heavy skillet on all sides. Put it in a crock-pot set on high with a can of cream of mushroom soup, 3/4 cup barbecue sauce, 1/2 cup wine or beer, and 2 tablespoons Wondra flour, and serve it over bow-tie or extra-wide noodles.",
+      "category": "rare-keyword",
+      "question": "I want a quick white sauce without making a roux first — which recipe uses Gold Medal Wondra instant flour?",
+      "reference_answer": "Mix 1 cup milk, 2 tablespoons Gold Medal Wondra flour, 1/4 teaspoon salt, 1/8 teaspoon white pepper, and 2 tablespoons margarine in a 1-quart saucepan. Heat to a boil over medium heat, stirring constantly, then boil and stir for 1 minute; it makes 1 cup of sauce.",
+      "gold_ids": [6173],
+      "source_recipe_id": 6173
+    },
+    {
+      "id": "q002",
+      "category": "rare-keyword",
+      "question": "Which popover recipe is flavored with Cheddar and dill and is made with Wondra flour?",
+      "reference_answer": "Heat the oven to 450 degrees and grease custard or muffin cups. Beat 2 eggs, then stir in 1 cup Gold Medal Wondra flour, 1 cup milk, 1/4 cup shredded Cheddar, 1/2 teaspoon salt, and 1/2 teaspoon dried dill just until smooth. Fill the cups, bake 25 minutes, then reduce to 325 degrees and bake 10 to 15 minutes more until deep golden brown.",
+      "gold_ids": [20163],
+      "source_recipe_id": 20163
+    },
+    {
+      "id": "q003",
+      "category": "rare-keyword",
+      "question": "How do I make a ham glaze using Dr. Pepper?",
+      "reference_answer": "Mix 1 cup Dr. Pepper with 1/2 cup brown sugar. Place the ham in a baking pan and baste it frequently with the sauce as it bakes; you can still decorate with cloves or cherries.",
+      "gold_ids": [37876],
+      "source_recipe_id": 37876
+    },
+    {
+      "id": "q004",
+      "category": "rare-keyword",
+      "question": "Which strawberry pie is thickened with a strawberry Danish Junket dessert mix instead of cornstarch or gelatin?",
+      "reference_answer": "Mix 1 quart strawberries with 1 cup powdered sugar and let stand. Drain the juice and add water to make 2 cups, cook briefly, then stir in a box of strawberry Danish Junket mix. Cool, fold in the berries, pour into a baked pie shell, and top with whipped cream.",
+      "gold_ids": [48419],
+      "source_recipe_id": 48419
+    },
+    {
+      "id": "q005",
+      "category": "rare-keyword",
+      "question": "Which biscuit recipe calls specifically for Clabber Girl baking powder?",
+      "reference_answer": "Combine 1 1/2 cups flour, a dash of salt, 2 tablespoons Clabber Girl baking powder, and 3 tablespoons oil, then add buttermilk until the dough is moist and sticky. Turn it out onto a floured surface, press it out by hand, and cut the biscuits.",
+      "gold_ids": [38276],
+      "source_recipe_id": 38276
+    },
+    {
+      "id": "q006",
+      "category": "rare-keyword",
+      "question": "Which onion soup uses three kinds of onion and a little Kitchen Bouquet?",
+      "reference_answer": "Saute 1 red, 2 white, and 3 yellow onions with garlic in a stick of margarine until tender. Add sugar, thyme, black pepper, caraway seed, a bay leaf, Worcestershire sauce, 1/2 teaspoon Kitchen Bouquet, and 2 quarts beef stock, and cook about 1 hour in a crock-pot on high or simmer on the stove.",
+      "gold_ids": [2400],
+      "source_recipe_id": 2400
+    },
+    {
+      "id": "q007",
+      "category": "rare-keyword",
+      "question": "Which blueberry pie filling is thickened with Minute tapioca?",
+      "reference_answer": "Combine 2 tablespoons Minute tapioca with brown sugar, lemon juice or vinegar, cold water, sugar, salt, a quart of blueberries, and butter, then cook and pour the filling into a baked pie shell.",
+      "gold_ids": [8640],
+      "source_recipe_id": 8640
+    },
+    {
+      "id": "q008",
+      "category": "rare-keyword",
+      "question": "Which pumpkin tea loaf is spiced with cardamom along with cloves and cinnamon?",
+      "reference_answer": "Beat shortening and sugar, then beat in 4 eggs, a 1-lb can of pumpkin, and water. Combine all-purpose and whole wheat flours with soda, salt, baking powder, ground cardamom, cloves, and cinnamon; stir into the pumpkin mixture, fold in raisins and chopped pecans, and bake in greased loaf pans.",
+      "gold_ids": [28646],
+      "source_recipe_id": 28646
+    },
+    {
+      "id": "q009",
+      "category": "rare-keyword",
+      "question": "Which party punch gets its color and flavor from grenadine syrup and ginger ale?",
+      "reference_answer": "Combine thawed frozen lemonade and orange juice concentrates, 6 cups water, and grenadine syrup in a punch bowl. Just before serving, add ice and stir in a quart of chilled ginger ale, garnishing each cup with a thin lemon slice and a maraschino cherry.",
+      "gold_ids": [214],
+      "source_recipe_id": 214
+    },
+    {
+      "id": "q010",
+      "category": "rare-keyword",
+      "question": "Which spice cake is seasoned with both cardamom and cilantro, with apple, apricots, and raisins?",
+      "reference_answer": "Beat 4 eggs with 1 3/4 cups brown sugar and salt, then add allspice, cinnamon, cardamom, cilantro, ginger, and cloves. Cut walnuts, raisins, dried apricots, and an apple into pieces, toss them with the wheat flour, fold into the batter, and bake at 350 degrees.",
+      "gold_ids": [744],
+      "source_recipe_id": 744
+    },
+    {
+      "id": "q011",
+      "category": "rare-keyword",
+      "question": "Which root beer float is decorated like eyeballs with ice cream, candies, and gummy worms?",
+      "reference_answer": "Scoop vanilla ice cream into eyeball-sized balls and press a chocolate-coated candy into each as a pupil, then freeze. Fill serving glasses with chilled root beer to 2 inches from the top, add a small scoop of ice cream, drop in gummy worms and shoestring licorice as 'veins,' and top with the ice cream eyeballs.",
+      "gold_ids": [47608],
+      "source_recipe_id": 47608
+    },
+    {
+      "id": "q012",
+      "category": "rare-keyword",
+      "question": "Which slow-cooker beef roast thickens its gravy with Gold Medal Wondra flour and is served over bow-tie noodles?",
+      "reference_answer": "Spread mashed garlic over a 3 to 4 lb beef chuck or cross-rib roast and sear it in oil. Put it in a crock-pot on high with a can of cream of mushroom soup, 3/4 cup barbecue sauce, 1/2 cup wine or beer, and 2 tablespoons Gold Medal Wondra flour, and serve it over bow-tie or extra-wide noodles.",
       "gold_ids": [2652],
       "source_recipe_id": 2652
     },
     {
-      "id": "q002",
-      "question": "What goes into a broccoli and cauliflower salad with bacon and Cheddar, and how do I make the dressing?",
-      "reference_answer": "In a large bowl combine broccoli florets, cauliflower florets, crumbled fried bacon, chopped onion, and chopped tomato. In another bowl mix 1 cup mayonnaise, 1/3 cup sugar, and 2 tablespoons vinegar until smooth. Just before serving, pour the dressing over the salad, toss, and add 1/2 cup shredded Cheddar.",
-      "gold_ids": [3234],
-      "source_recipe_id": 3234
+      "id": "q013",
+      "category": "near-dup",
+      "question": "Among the many strawberry pies, which is the no-bake kind made with cream cheese and sweetened condensed milk (Eagle Brand), not a cooked cornstarch or gelatin glaze?",
+      "reference_answer": "Beat an 8-oz package of cream cheese with a can of sweetened condensed milk (Eagle Brand), then mix in lemon juice and fold in strawberries. Pour into a graham cracker or baked pie shell and chill or freeze — there is no cooked cornstarch or gelatin glaze.",
+      "gold_ids": [2888, 8775],
+      "source_recipe_id": 8775
     },
     {
-      "id": "q003",
-      "question": "How do I make zucchini-slice mini pizzas under the broiler?",
-      "reference_answer": "Combine 3/4 cup garden-style spaghetti sauce with minced onion, black pepper, and oregano. Arrange 1/2-inch fresh zucchini slices on a cookie sheet coated with cooking spray, top each with the sauce and a mushroom slice, sprinkle with a mix of shredded Mozzarella and grated Parmesan, and broil until hot and bubbly.",
-      "gold_ids": [395],
-      "source_recipe_id": 395
+      "id": "q014",
+      "category": "near-dup",
+      "question": "Which carrot cake includes both crushed pineapple and coconut in the batter?",
+      "reference_answer": "Mix flour, sugar, coconut, baking soda, cinnamon, and salt, then add beaten eggs, oil, grated carrots, chopped walnuts, a can of crushed pineapple, and vanilla. Pour into a greased and floured pan and bake at 325 to 350 degrees for 45 to 50 minutes.",
+      "gold_ids": [8042, 9379, 19984, 22976, 37768],
+      "source_recipe_id": 8042
     },
     {
-      "id": "q004",
-      "question": "How do I make an Orange Julius drink in the blender with fresh oranges and honey?",
-      "reference_answer": "Put a couple of oranges and 2 tablespoons honey in a blender, add crushed ice until it reaches the thickness you want, then add about 1 cup of milk to fill the blender and blend.",
-      "gold_ids": [593],
-      "source_recipe_id": 593
+      "id": "q015",
+      "category": "near-dup",
+      "question": "Which broccoli salad is dressed with sour cream, mayonnaise, and Ranch dressing mix (and includes cauliflower and peas) instead of the usual sugar-vinegar dressing?",
+      "reference_answer": "Mix broccoli and cauliflower florets, thawed frozen peas, sliced celery, and chopped green onions. Stir together an 8-oz carton of sour cream, 1 cup mayonnaise, and 2 packages of Ranch dressing mix, pour over the vegetables, and refrigerate several hours or overnight.",
+      "gold_ids": [8208],
+      "source_recipe_id": 8208
     },
     {
-      "id": "q005",
-      "question": "How do I make oven Swiss steak using an oven roasting bag?",
-      "reference_answer": "Shake 1 tablespoon flour inside an oven cooking bag, then add pieces of round or sirloin steak, a 16 oz can of Italian seasoned tomatoes, a dry envelope of Lipton onion soup mix, 1/4 cup water, and salt and pepper. Squeeze to mix, tie the bag, place it in a 9 x 13-inch pan, cut six 1/2-inch vent slits, and bake at 325 degrees for about 2 hours.",
-      "gold_ids": [771],
-      "source_recipe_id": 771
+      "id": "q016",
+      "category": "near-dup",
+      "question": "Which banana bread has raisins folded into the batter?",
+      "reference_answer": "Mash very ripe bananas and mix with the wet ingredients, then fold in the dry ingredients along with raisins, taking care not to overmix. Pour into a greased loaf pan and bake at 350 degrees.",
+      "gold_ids": [20932, 34944, 44209],
+      "source_recipe_id": 20932
     },
     {
-      "id": "q006",
-      "question": "How do I brine and jar Grandma's dill pickles?",
-      "reference_answer": "Wash firm cucumbers and pack them into jars. To each quart add 1/2 teaspoon mustard seed, 1/2 teaspoon celery seed, 1 bay leaf, 1/2 teaspoon pickling spice, and a large piece of dill. Bring 5 quarts water, 1 cup salt, and 2 cups vinegar to a boil, fill the packed jars with the hot brine, and seal at once; they can be used after standing 1 week.",
-      "gold_ids": [4774],
-      "source_recipe_id": 4774
+      "id": "q017",
+      "category": "near-dup",
+      "question": "Which chocolate pie has dairy sour cream stirred into the cooked filling?",
+      "reference_answer": "Cook a mixture of granulated and brown sugar, salt, cornstarch, evaporated milk, and beaten egg yolks until thick, then stir in 1 cup dairy sour cream, butter, vanilla, and cocoa. Pour into a baked pie shell and top with whipped topping.",
+      "gold_ids": [12778],
+      "source_recipe_id": 12778
     },
     {
-      "id": "q007",
-      "question": "How do I make Spanish hamburger with tomato soup on the stovetop?",
-      "reference_answer": "Fry the hamburger until half done, then add finely chopped onion, green pepper, and celery and let it simmer 1/2 hour. Season with salt and pepper, stir in a 20 oz can of tomato soup, and simmer 2 hours, keeping the steam in for best results.",
-      "gold_ids": [475],
-      "source_recipe_id": 475
+      "id": "q018",
+      "category": "near-dup",
+      "question": "Which peanut butter pie is a no-bake frozen pie made with cream cheese and whipped topping in a chocolate crumb crust?",
+      "reference_answer": "Beat 1/3 cup creamy peanut butter with a 3-oz package of cream cheese and 2 tablespoons butter until smooth. Add confectioners sugar and milk, fold in an 8-oz carton of whipped topping, and pour into a chocolate crumb crust. Freeze at least 4 hours and serve frozen.",
+      "gold_ids": [13619],
+      "source_recipe_id": 13619
     },
     {
-      "id": "q008",
-      "question": "How do I marinate and bake Chinese five-spice chicken wings?",
-      "reference_answer": "Combine 2/3 cup soy sauce, 1/2 cup honey, 2 tablespoons vegetable oil, 2 minced garlic cloves, and 2 teaspoons Chinese Five Spice powder, and pour it over 2 1/2 lb chicken wings. Marinate 4 hours, then place the wings on a broiler rack and bake at 375 degrees for 45 minutes, turning and basting every 15 minutes.",
-      "gold_ids": [4156],
-      "source_recipe_id": 4156
+      "id": "q019",
+      "category": "near-dup",
+      "question": "Which pumpkin bread is sweetened with molasses?",
+      "reference_answer": "Combine the dry ingredients — whole wheat flour, sugar, salt, soda, baking powder, ginger, and nutmeg — then stir in 2/3 cup molasses, 2 cups pumpkin, a can of condensed milk, vanilla, and eggs. Pour into 2 greased loaf pans and bake at 350 degrees for 40 to 50 minutes.",
+      "gold_ids": [5518, 21571],
+      "source_recipe_id": 5518
     },
     {
-      "id": "q009",
-      "question": "How do I make a strawberry Jell-O salad with bananas, pecans, and Cool Whip?",
-      "reference_answer": "Dissolve 2 large packages of strawberry Jell-O in 2 cups boiling water, then stir in the rest of the water (4 cups hot water total). Let it begin to thicken, then add a pint of strawberries, 3 diced bananas, and 1 cup chopped pecans. Let it stand until firm, spread Cool Whip on top, and refrigerate.",
-      "gold_ids": [704],
-      "source_recipe_id": 704
+      "id": "q020",
+      "category": "near-dup",
+      "question": "Which cheese ball is a sweet dessert version with crushed pineapple, maraschino cherries, and pecans?",
+      "reference_answer": "Beat cream cheese with well-drained crushed pineapple and chopped maraschino cherries (plus a little chopped sweet pepper, onion, and salt), mold into a ball, and refrigerate overnight. Roll it in chopped pecans before serving.",
+      "gold_ids": [36223, 44082],
+      "source_recipe_id": 36223
     },
     {
-      "id": "q010",
-      "question": "How do I make a filled beef roll stuffed with rice and Swiss cheese?",
-      "reference_answer": "Combine a beaten egg, 1/4 cup milk, 1/2 cup finely crushed saltine crumbs, 1/4 cup chopped onion, 1/2 teaspoon salt, and a dash of pepper, then mix in 1 lb ground beef. Pat it into a 10 x 8-inch rectangle on waxed paper. Mix 1 cup cooked rice, shredded process Swiss cheese, and chopped green pepper and pat it onto the meat leaving a 1-inch margin. Roll jelly-roll fashion from the narrow side, seal the seam and ends, and bake seam side down at 350 degrees for 35 minutes; let stand 5 minutes before serving.",
-      "gold_ids": [3552],
-      "source_recipe_id": 3552
+      "id": "q021",
+      "category": "near-dup",
+      "question": "Which meat loaf is mixed and topped with mozzarella and Cheddar cheese and bound with tomato soup and stuffing?",
+      "reference_answer": "Mix 1 1/2 lb hamburger with a handful of stuffing, a can of tomato paste, crushed crackers, chopped onion, half a can of tomato soup, and handfuls of mozzarella and Cheddar. Put it in a loaf pan, top with the rest of the tomato soup and more mozzarella, and bake at 350 degrees for 1 hour.",
+      "gold_ids": [14709, 31605],
+      "source_recipe_id": 14709
     },
     {
-      "id": "q011",
-      "question": "How do I make chicken Creole starting with a roux, served over rice?",
-      "reference_answer": "Heat 1/4 cup vegetable oil in a heavy skillet, stir in 1/4 cup flour, and stir constantly until it turns the color of a copper penny, about 5 minutes. Reduce heat, add chopped green pepper and onion, and cook until tender. Add 2 cups cooked chicken, a 28 oz can of stewed tomatoes, Worcestershire sauce, minced garlic, soy sauce, sugar, salt, pepper, and hot sauce; cover and simmer about 20 minutes, then serve over hot cooked rice.",
-      "gold_ids": [3425],
-      "source_recipe_id": 3425
+      "id": "q022",
+      "category": "near-dup",
+      "question": "Which sugar cookies are made with dairy sour cream in the dough?",
+      "reference_answer": "Cream 1 cup shortening with 1 cup sugar, then add 1 cup dairy sour cream, 3 beaten egg yolks, and vanilla. Sift together flour, salt, baking soda, and baking powder, blend into the creamed mixture, chill, shape into balls, and bake.",
+      "gold_ids": [16875, 47550],
+      "source_recipe_id": 16875
+    },
+    {
+      "id": "q023",
+      "category": "near-dup",
+      "question": "Which pound cake has crushed pineapple and candied cherries folded into the batter?",
+      "reference_answer": "Cream 3 sticks of oleo with 6 eggs added one at a time, then beat in vanilla and a 1-lb box of powdered sugar. Gradually add flour, baking powder, chopped nuts, drained crushed pineapple, and candied cherries, and bake in a greased tube pan at 350 degrees for about 1 hour and 10 minutes.",
+      "gold_ids": [9692, 11414, 29900],
+      "source_recipe_id": 9692
+    },
+    {
+      "id": "q024",
+      "category": "near-dup",
+      "question": "Which chili is thickened with a couple of handfuls of oatmeal and includes cocoa?",
+      "reference_answer": "Cook 5 lb coarse ground beef, then add a 64-oz can of tomato juice, salt, sugar, chili seasoning (Williams), and 3 cans of beans, and simmer about 20 minutes. Add chopped garlic and cook 5 minutes more, then stir in 3 tablespoons cocoa and a couple of handfuls of oatmeal and cook until the oatmeal disappears.",
+      "gold_ids": [8328],
+      "source_recipe_id": 8328
     }
   ]
 }

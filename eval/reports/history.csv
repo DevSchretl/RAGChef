@@ -4,3 +4,4 @@ timestamp,name,k,num_questions,judged,chat_model,judge_model,hit@k,recall@k,mrr,
 2026-06-23T13:25:55,phase1-dense-retrieval,4,10,False,google/gemma-4-e4b,google/gemma-4-e4b,1.0,1.0,0.9333,,,,,
 2026-06-23T14:26:56,run,4,10,True,google/gemma-4-e4b,google/gemma-4-e4b,1.0,1.0,1.0,1.0,0.7511,1.0,1.0,0.0
 2026-06-24T00:16:08,phase1-dense-5k,4,11,True,google/gemma-4-e4b,google/gemma-4-e4b,1.0,1.0,0.9545,0.9779,0.8395,0.9293,1.0,0.0221
+2026-07-02T18:57:52,phase1-dense-hard,4,24,True,google/gemma-4-e4b,google/gemma-4-e4b,0.5833,0.4806,0.4861,0.7917,0.8529,0.6007,0.7076,0.2083

@@ -47,9 +47,13 @@ def _load_items(path, kind: str) -> list[dict]:
     return items
 
 
-def _groundedness(answer: str, gold_text: str) -> dict:
-    """Score one answer against the gold recipe. Returns score + raw claim counts."""
-    supported, total = judge.supported_claims(answer, [gold_text])
+def _groundedness(answer: str, gold_texts: list[str]) -> dict:
+    """Score one answer against the gold recipe(s). Returns score + raw claim counts.
+
+    For near-dup questions with several valid golds, a claim supported by ANY gold counts —
+    so the answer is judged against the union of all gold recipes.
+    """
+    supported, total = judge.supported_claims(answer, gold_texts)
     score = 1.0 if total == 0 else supported / total
     return {"score": round(score, 4), "supported": supported, "total": total}
 
@@ -61,28 +65,29 @@ def run(items: list[dict], k: int) -> dict:
 
     per_item = []
     for n, item in enumerate(items, start=1):
-        gold_id = item["gold_ids"][0]
-        gold = recipe_by_id.get(gold_id)
-        if gold is None:
-            print(f"  [{n}/{len(items)}] {item['id']}  SKIPPED — gold id {gold_id} not in index")
+        gold_ids = item["gold_ids"]
+        golds = [recipe_by_id[g] for g in gold_ids if g in recipe_by_id]
+        if not golds:
+            print(f"  [{n}/{len(items)}] {item['id']}  SKIPPED — no gold ids {gold_ids} in index")
             continue
-        gold_text = gold["text"]
+        gold_texts = [g["text"] for g in golds]
+        gold_title = golds[0]["title"] + (f" (+{len(golds) - 1} more)" if len(golds) > 1 else "")
         question = item["question"]
 
         # Arm A: RAG (retrieve -> grounded generation). Arm B: closed-book (no context).
         rag_answer = generate.generate_answer(question, retrieve.retrieve(question, top_k=k))
         cb_answer = generate.generate_answer_closed_book(question)
 
-        rag = _groundedness(rag_answer, gold_text)
-        cb = _groundedness(cb_answer, gold_text)
+        rag = _groundedness(rag_answer, gold_texts)
+        cb = _groundedness(cb_answer, gold_texts)
 
         per_item.append({
             "id": item["id"],
             "type": item["type"],
             "question": question,
             "reference_answer": item.get("reference_answer", ""),
-            "gold_id": gold_id,
-            "gold_title": gold["title"],
+            "gold_id": gold_ids,
+            "gold_title": gold_title,
             "rag": {"answer": rag_answer, **rag},
             "no_rag": {"answer": cb_answer, **cb},
         })
@@ -184,7 +189,7 @@ def _render_markdown(report: dict, name: str) -> str:
     for x in report["per_item"]:
         rag, cb = x["rag"], x["no_rag"]
         lines += [
-            f"### {x['id']} — {x['type']} — gold [{x['gold_id']}] {x['gold_title']}",
+            f"### {x['id']} — {x['type']} — gold {x['gold_id']} {x['gold_title']}",
             "",
             f"**Q:** {x['question']}",
             "",

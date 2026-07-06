@@ -113,18 +113,19 @@ shorter 9–11 minute bake ...
 
 The full **RecipeNLG** dataset (`data/full_dataset.csv`, ~2.2M recipes, 2.2 GB) is the
 default corpus — `config.py` points `CSV_PATH` at it and ingests the first
-`CORPUS_SIZE` rows (5,000 by default). It's gitignored, so it's never committed. If you
+`CORPUS_SIZE` rows (50,000 by default). It's gitignored, so it's never committed. If you
 clone fresh, download it from Kaggle (`paultimothymooney/recipenlg`) and drop
 `full_dataset.csv` into `data/`.
 
 ```powershell
-python -m src.ingest          # indexes the first 5,000 rows of full_dataset.csv
+python -m src.ingest          # indexes the first 50,000 rows of full_dataset.csv
 ```
 
 Only the first `CORPUS_SIZE` rows are read, so the 2.2 GB file size is irrelevant — ingest
-cost is linear in `CORPUS_SIZE` (≈2–3 min for 5,000 on a CPU-class machine, far less on a
-GPU). Indexing all 2.2M recipes is unnecessary; a few thousand gives the eval enough
-distractors to be discriminating. For a quick test without the big file, use the tiny
+cost is linear in `CORPUS_SIZE` (≈26 min for 50,000 at ~37 docs/sec on a CPU-class machine,
+far less on a GPU; index ~150 MB). 50k is used so the hard eval set has enough near-duplicate
+density to be discriminating; drop it (e.g. `RAGCHEF_CORPUS_SIZE=5000`) for faster iteration
+if you don't need the full difficulty. For a quick test without the big file, use the tiny
 committed sample instead:
 
 ```powershell
@@ -169,7 +170,8 @@ pipeline and scores it. No new dependencies — same `openai` + `numpy`.
 
 | File | Role |
 |------|------|
-| [eval/testset.json](eval/testset.json) | Frozen, hand-curated questions + gold recipe ids + reference answers. |
+| [eval/testset.json](eval/testset.json) | Frozen, hand-curated **hard** questions (rare-keyword + near-duplicate) + gold recipe ids + reference answers. |
+| [eval/testset.easy.json](eval/testset.easy.json) | Archived easy baseline (specific-recipe lookups); kept for reference/regression. |
 | [eval/retrieval_metrics.py](eval/retrieval_metrics.py) | **Tier 1** — `hit@k`, `recall@k`, `MRR`. Deterministic, no LLM. |
 | [eval/judge.py](eval/judge.py) | **Tier 2** — RAGAS-style `faithfulness`, `answer_relevancy`, `context_precision`, `context_recall`, judged by the local LLM. |
 | [eval/run_eval.py](eval/run_eval.py) | Runs both tiers, writes `report.md` + appends to `history.csv`. |
@@ -183,6 +185,14 @@ pipeline and scores it. No new dependencies — same `openai` + `numpy`.
   number is **hallucination rate = 1 − faithfulness**. These follow the RAGAS *definitions*
   via plain prompts (no `ragas`/LangChain, so it runs fine on Python 3.14); the values are
   *directionally* faithful to canonical RAGAS, which is what you want for tracking change.
+
+**The test set is deliberately hard for dense retrieval**, so Phase 2 (hybrid + rerank) has
+room to prove itself. Two question types: **rare-keyword** — the query hinges on a
+distinctive ingredient/brand/technique token (e.g. "Wondra flour", "Clabber Girl", "Dr.
+Pepper") that dense embeddings under-weight but BM25 nails; and **near-duplicate** — among
+dozens of same-title recipes, find the one(s) with a distinguishing detail (a reranker's
+job), so `gold_ids` may list several valid siblings. On the 50k index the Phase-1 **dense**
+baseline sits at hit@4 ≈ 0.58 / MRR ≈ 0.49 — the headroom Phase 2 aims to close.
 
 ```powershell
 # Fast, deterministic — retrieval metrics only (no chat model needed):
